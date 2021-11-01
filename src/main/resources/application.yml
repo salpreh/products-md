@@ -1,0 +1,13 @@
+spring:
+  jpa:
+    database: POSTGRESQL
+    show-sql: false
+    hibernate:
+      ddl-auto: validate
+  datasource:
+    url: jdbc:postgresql://${POSTGRES_HOST:postgres}:5432/products
+    username: products_srv
+    password: password
+    driverClassName: org.postgresql.Driver
+    minimumIdle: 5
+    maximumPoolSize: 10

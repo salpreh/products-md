@@ -1,0 +1,22 @@
+version: '3'
+services:
+  postgres:
+    image: postgres:11.12-alpine
+    environment:
+      POSTGRES_DB: products
+      POSTGRES_USER: products_srv
+      POSTGRES_PASSWORD: password
+      LANG: en_US.UTF-8
+      LANGUAGE: en_US:en
+      LC_ALL: en_US.UTF-8
+    ports:
+      - "5435:5432"
+
+  app:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres

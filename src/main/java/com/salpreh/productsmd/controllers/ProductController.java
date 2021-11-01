@@ -6,9 +6,9 @@ import java.util.UUID;
 import com.salpreh.productsmd.dtos.ProductCreateDto;
 import com.salpreh.productsmd.dtos.ProductDto;
 import com.salpreh.productsmd.dtos.ProductUpdateDto;
+import com.salpreh.productsmd.dtos.ResultPage;
 import com.salpreh.productsmd.services.impl.ProductService;
 
-import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,7 +34,7 @@ public class ProductController {
     }
 
     @GetMapping
-    public Page<ProductDto> read(@RequestParam Optional<Integer> page, @RequestParam Optional<Integer> size) {
+    public ResultPage<ProductDto> read(@RequestParam Optional<Integer> page, @RequestParam Optional<Integer> size) {
         return productService.findAll(page, size);
     }
 

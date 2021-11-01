@@ -1,6 +1,5 @@
 package com.salpreh.productsmd.services.impl;
 
-import java.lang.reflect.Type;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -38,7 +37,7 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public Page<ProductDto> findAll(Optional<Integer> numPage, Optional<Integer> size) {
+    public ResultPage<ProductDto> findAll(Optional<Integer> numPage, Optional<Integer> size) {
         Pageable pageable = PageRequest.of(
             numPage.orElse(0),
             size.orElse(100)
@@ -46,7 +45,7 @@ public class ProductService implements IProductService {
 
         Page<Product> page = productRepository.findAll(pageable);
 
-        return modelMapper.map(page, new TypeToken<Page<ProductDto>>() {}.getType());
+        return modelMapper.map(page, new TypeToken<ResultPage<ProductDto>>() {}.getType());
     }
 
     @Override

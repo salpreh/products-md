@@ -10,7 +10,7 @@ services:
       LANGUAGE: en_US:en
       LC_ALL: en_US.UTF-8
     ports:
-      - "5435:5432"
+      - "5432:5432"
 
   app:
     build:

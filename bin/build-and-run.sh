@@ -11,3 +11,11 @@ echo "> Starting containers"
 docker-compose up --build -d
 
 echo "> Project running"
+
+if command -v curl &> /dev/null; then
+    sleep 3
+    mkdir -p ./api-doc
+    doc_path="./api-doc/api-docs.yml"
+    curl http://localhost:8080/v3/api-docs.yaml --output "$doc_path"
+    echo "> Openapi spec in folder $(pwd -P)$doc_path"
+fi

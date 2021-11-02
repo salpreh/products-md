@@ -12,4 +12,5 @@ public class ProductDto {
     private String description;
     private ZonedDateTime createdAt;
     private String imageUrl;
+    private CopyrightDto copyright;
 }

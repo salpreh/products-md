@@ -3,6 +3,7 @@ package com.salpreh.productsmd.services.impl;
 import java.util.Optional;
 import java.util.UUID;
 
+import com.salpreh.productsmd.config.ServicePagingConfig;
 import com.salpreh.productsmd.dtos.ProductCreateDto;
 import com.salpreh.productsmd.dtos.ProductDto;
 import com.salpreh.productsmd.dtos.ProductUpdateDto;
@@ -39,8 +40,8 @@ public class ProductService implements IProductService {
     @Override
     public ResultPage<ProductDto> findAll(Optional<Integer> numPage, Optional<Integer> size) {
         Pageable pageable = PageRequest.of(
-            numPage.orElse(0),
-            size.orElse(100)
+            numPage.orElse(ServicePagingConfig.DEFAULT_PAGE),
+            size.orElse(ServicePagingConfig.DEFAULT_PAGE_SIZE)
         );
 
         Page<Product> page = productRepository.findAll(pageable);
@@ -61,6 +62,7 @@ public class ProductService implements IProductService {
         Product p = productRepository.findById(productId)
             .orElseThrow(ProductNotFoundException::new);
 
+        if (product.getCopyright() == null) p.setCopyright(null);
         modelMapper.map(product, p);
         p = productRepository.save(p);
 

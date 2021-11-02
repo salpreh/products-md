@@ -7,4 +7,5 @@ public class ProductUpdateDto {
     private String title;
     private String description;
     private String imageUrl;
+    private CopyrightUpdateDto copyright;
 }

@@ -7,4 +7,5 @@ public class ProductCreateDto {
     private String title;
     private String description;
     private String imageUrl;
+    private CopyrightCreateDto copyright;
 }

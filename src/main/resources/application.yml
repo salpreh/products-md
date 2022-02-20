@@ -14,6 +14,11 @@ spring:
     maximumPoolSize: 10
   flyway:
     enabled: true
+
+products-md:
+  cache:
+    ttl-seconds: 60
+
 management:
   endpoints:
     web:

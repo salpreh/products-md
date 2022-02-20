@@ -1,0 +1,135 @@
+{
+	"info": {
+		"_postman_id": "7dea992b-6a01-4728-a04a-a2e5715ddbf4",
+		"name": "product-md",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "getAll",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/product",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"product"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getProduct",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/product/{{id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"product",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateProduct",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"Damn Valencian rice\",\n    \"description\": \"Original valencian rice\",\n    \"imageUrl\": \"http://mydomain/img_rice.jpg\",\n    \"copyright\": {\n        \"clause\": \"Should be keeped original\",\n        \"dueDate\": \"2024-11-01T01:00:00+01:00\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/product/{{id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"product",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteProduct",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"Damn Valencian rice\",\n    \"description\": \"Original valencian rice\",\n    \"imageUrl\": \"http://mydomain/img_rice.jpg\",\n    \"copyright\": {\n        \"clause\": \"Should be keeped original\",\n        \"dueDate\": \"2024-11-01T01:00:00+01:00\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/product/{{id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"product",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8080",
+			"type": "string"
+		},
+		{
+			"key": "cache_manager",
+			"value": "/actuator/cache-manager",
+			"type": "string"
+		},
+		{
+			"key": "id",
+			"value": "044a4c78-1ff4-4dae-acd4-040f71b031fe",
+			"type": "string"
+		}
+	]
+}

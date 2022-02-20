@@ -1,8 +1,5 @@
 package com.salpreh.productsmd.services.impl;
 
-import java.util.Optional;
-import java.util.UUID;
-
 import com.salpreh.productsmd.config.ServicePagingConfig;
 import com.salpreh.productsmd.dtos.ProductCreateDto;
 import com.salpreh.productsmd.dtos.ProductDto;
@@ -12,15 +9,20 @@ import com.salpreh.productsmd.entities.Product;
 import com.salpreh.productsmd.exceptions.ProductNotFoundException;
 import com.salpreh.productsmd.repositories.ProductRepository;
 import com.salpreh.productsmd.services.IProductService;
-
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import lombok.RequiredArgsConstructor;
+import java.util.Optional;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 @Service
 @RequiredArgsConstructor
@@ -30,6 +32,7 @@ public class ProductService implements IProductService {
     private final ProductRepository productRepository;
 
     @Override
+    @Cacheable(value = "products", key = "#result.id.toString()")
     public ProductDto create(ProductCreateDto product) {
         Product p = modelMapper.map(product, Product.class);
         p = productRepository.save(p);
@@ -50,14 +53,23 @@ public class ProductService implements IProductService {
     }
 
     @Override
+    @Cacheable(value = "products", key = "#productId.toString()")
     public ProductDto findById(UUID productId) {
         Product p = productRepository.findById(productId)
             .orElseThrow(ProductNotFoundException::new);
+
+        // Artificial delay to test cache
+        try {
+            TimeUnit.SECONDS.sleep(5);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         return modelMapper.map(p, ProductDto.class);
     }
 
     @Override
+    @CachePut(value = "products", key = "#productId.toString()")
     public ProductDto update(UUID productId, ProductUpdateDto product) {
         Product p = productRepository.findById(productId)
             .orElseThrow(ProductNotFoundException::new);
@@ -70,6 +82,7 @@ public class ProductService implements IProductService {
     }
 
     @Override
+    @CacheEvict(value = "products", key = "#productId.toString()")
     public ProductDto delete(UUID productId) {
         Product p = productRepository.findById(productId)
             .orElseThrow(ProductNotFoundException::new);
